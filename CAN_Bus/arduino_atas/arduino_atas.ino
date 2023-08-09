@@ -122,8 +122,7 @@ void loop() {
   getTFminiData(&portSkanan, &TFminiKanan);
   getTFminiData(&portSkiri, &TFminiKiri);
 
-  if (TFminiDepan.receiveComplete == true && TFminiBawah.receiveComplete == true
-    TFminiKanan.receiveComplete == true && TFminiKiri.receiveComplete == true) {
+  if (TFminiDepan.receiveComplete == true && TFminiBawah.receiveComplete == true && TFminiKanan.receiveComplete == true && TFminiKiri.receiveComplete == true) {
     ++count;
     char buffer[33];
 
@@ -139,10 +138,10 @@ void loop() {
     Serial.print("Jarak Bawah : ");
     Serial.print(TFminiBawah.distance);
     Serial.print("cm\t");
-     Serial.print("Jarak Kanan : ");
+    Serial.print("Jarak Kanan : ");
     Serial.print(TFminiKanan.distance);
     Serial.print("cm\t");
-     Serial.print("Jarak Kiri : ");
+    Serial.print("Jarak Kiri : ");
     Serial.print(TFminiKiri.distance);
     Serial.print("cm\t");
     Serial.print(frequency);  //40~70Hz, It maybe higher if we don't print other thing.
@@ -155,7 +154,7 @@ void loop() {
 
     TFminiDepan.receiveComplete = false;
     TFminiBawah.receiveComplete = false;
-     TFminiKanan.receiveComplete = false;
-     TFminiKiri.receiveComplete = false;
+    TFminiKanan.receiveComplete = false;
+    TFminiKiri.receiveComplete = false;
   }
 }
