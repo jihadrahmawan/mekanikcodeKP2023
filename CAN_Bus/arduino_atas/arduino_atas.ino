@@ -5,7 +5,7 @@
 
 
 struct can_frame canMsg;
-MCP2515 mcp2515(2);
+MCP2515 mcp2515(10);
 
 typedef struct {
   int distance;
@@ -84,6 +84,7 @@ void loop() {
   if (Serial.available()) {
     char a = Serial.read();
     if (a == 'n') {
+      Serial.println("Kirim naik");
       canMsg.can_id = 0x036;
       canMsg.can_dlc = 8;
       canMsg.data[0] = perintahMagnetNaik;
@@ -97,6 +98,7 @@ void loop() {
       mcp2515.sendMessage(&canMsg);
     }
     if (a == 't') {
+      Serial.println("Kirim turun");
       canMsg.can_id = 0x036;
       canMsg.can_dlc = 8;
       canMsg.data[0] = perintahMagnetTurun;
@@ -120,7 +122,8 @@ void loop() {
   getTFminiData(&portSkanan, &TFminiKanan);
   getTFminiData(&portSkiri, &TFminiKiri);
 
-  if (TFminiDepan.receiveComplete == true && TFminiBawah.receiveComplete == true) {
+  if (TFminiDepan.receiveComplete == true && TFminiBawah.receiveComplete == true
+    TFminiKanan.receiveComplete == true && TFminiKiri.receiveComplete == true) {
     ++count;
     char buffer[33];
 
@@ -136,6 +139,12 @@ void loop() {
     Serial.print("Jarak Bawah : ");
     Serial.print(TFminiBawah.distance);
     Serial.print("cm\t");
+     Serial.print("Jarak Kanan : ");
+    Serial.print(TFminiKanan.distance);
+    Serial.print("cm\t");
+     Serial.print("Jarak Kiri : ");
+    Serial.print(TFminiKiri.distance);
+    Serial.print("cm\t");
     Serial.print(frequency);  //40~70Hz, It maybe higher if we don't print other thing.
     Serial.println("Hz");
 
@@ -146,5 +155,7 @@ void loop() {
 
     TFminiDepan.receiveComplete = false;
     TFminiBawah.receiveComplete = false;
+     TFminiKanan.receiveComplete = false;
+     TFminiKiri.receiveComplete = false;
   }
 }
