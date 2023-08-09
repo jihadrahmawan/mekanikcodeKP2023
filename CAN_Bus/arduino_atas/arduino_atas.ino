@@ -21,8 +21,8 @@ TFmini TFminiKiri = { 0, 0, false };
 
 SoftwareSerial portSdepan(3, 4);
 SoftwareSerial portSbawah(5, 6);
-// SoftwareSerial portSkanan(7, 8);
-// SoftwareSerial portSkiri(A1, A0);
+SoftwareSerial portSkanan(7, 8);
+SoftwareSerial portSkiri(A1, A0);
 
 
 void getTFminiData(SoftwareSerial* port, TFmini* tfmini) {
@@ -66,8 +66,8 @@ void setup() {
   Serial.begin(9600);
   portSdepan.begin(115200);
   portSbawah.begin(115200);
-  // portSkanan.begin(115200);
-  // portSkiri.begin(115200);
+  portSkanan.begin(115200);
+  portSkiri.begin(115200);
 
 
   mcp2515.reset();
@@ -117,6 +117,8 @@ void loop() {
 
   getTFminiData(&portSdepan, &TFminiDepan);
   getTFminiData(&portSbawah, &TFminiBawah);
+  getTFminiData(&portSkanan, &TFminiKanan);
+  getTFminiData(&portSkiri, &TFminiKiri);
 
   if (TFminiDepan.receiveComplete == true && TFminiBawah.receiveComplete == true) {
     ++count;
