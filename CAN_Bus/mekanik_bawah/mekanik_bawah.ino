@@ -4,7 +4,7 @@
 
 struct can_frame can_kirim_arduAtas;
 struct can_frame can_terima_arduAtas;
-MCP2515 mcp2515(2);
+MCP2515 mcp2515(10);
 
 const int sharpGP1 = A0;
 const int sharpGP2 = A1;
