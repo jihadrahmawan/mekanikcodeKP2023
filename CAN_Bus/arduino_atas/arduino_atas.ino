@@ -147,7 +147,7 @@ void loop() {
     // Serial.print(frequency);  //40~70Hz, It maybe higher if we don't print other thing.
     // Serial.println("Hz");
 
-    sprintf(buffer, "a%4d%4d%4d%4d",
+    sprintf(buffer, "%4d%4d%4d%4d",
             TFminiDepan.distance,
             TFminiBawah.distance,
             TFminiKanan.distance,
