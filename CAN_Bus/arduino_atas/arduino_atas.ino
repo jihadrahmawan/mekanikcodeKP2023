@@ -23,6 +23,7 @@ SoftwareSerial portSdepan(3, 4);
 SoftwareSerial portSbawah(5, 6);
 SoftwareSerial portSkanan(7, 8);
 SoftwareSerial portSkiri(A1, A0);
+SoftwareSerial com(A2, A3);
 
 
 void getTFminiData(SoftwareSerial* port, TFmini* tfmini) {
@@ -63,16 +64,17 @@ int perintahMagnetTurun = 200;
 
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(57600);
+  com.begin(57600);
   portSdepan.begin(115200);
   portSbawah.begin(115200);
   portSkanan.begin(115200);
   portSkiri.begin(115200);
 
 
-  mcp2515.reset();
-  mcp2515.setBitrate(CAN_500KBPS, MCP_8MHZ);  //Sets CAN at speed 500KBPS and Clock 8MHz
-  mcp2515.setNormalMode();
+  // mcp2515.reset();
+  // mcp2515.setBitrate(CAN_500KBPS, MCP_8MHZ);  //Sets CAN at speed 500KBPS and Clock 8MHz
+  // mcp2515.setNormalMode();
 
 
 
@@ -85,34 +87,35 @@ void loop() {
     char a = Serial.read();
     if (a == 'n') {
       //Serial.println("Kirim naik");
-      canMsg.can_id = 0x036;
-      canMsg.can_dlc = 8;
-      canMsg.data[0] = perintahMagnetNaik;
-      canMsg.data[1] = 0x00;
-      canMsg.data[2] = 0x00;
-      canMsg.data[3] = 0x00;
-      canMsg.data[4] = 0x00;
-      canMsg.data[5] = 0x00;
-      canMsg.data[6] = 0x00;
-      canMsg.data[7] = 0x00;
-      mcp2515.sendMessage(&canMsg);
+      // canMsg.can_id = 0x036;
+      // canMsg.can_dlc = 8;
+      // canMsg.data[0] = perintahMagnetNaik;
+      // canMsg.data[1] = 0x00;
+      // canMsg.data[2] = 0x00;
+      // canMsg.data[3] = 0x00;
+      // canMsg.data[4] = 0x00;
+      // canMsg.data[5] = 0x00;
+      // canMsg.data[6] = 0x00;
+      // canMsg.data[7] = 0x00;
+      com.write('a');  //mcp2515.sendMessage(&canMsg);
     }
     if (a == 't') {
       //Serial.println("Kirim turun");
-      canMsg.can_id = 0x036;
-      canMsg.can_dlc = 8;
-      canMsg.data[0] = perintahMagnetTurun;
-      canMsg.data[1] = 0x00;
-      canMsg.data[2] = 0x00;
-      canMsg.data[3] = 0x00;
-      canMsg.data[4] = 0x00;
-      canMsg.data[5] = 0x00;
-      canMsg.data[6] = 0x00;
-      canMsg.data[7] = 0x00;
-      mcp2515.sendMessage(&canMsg);
+      // canMsg.can_id = 0x036;
+      // canMsg.can_dlc = 8;
+      // canMsg.data[0] = perintahMagnetTurun;
+      // canMsg.data[1] = 0x00;
+      // canMsg.data[2] = 0x00;
+      // canMsg.data[3] = 0x00;
+      // canMsg.data[4] = 0x00;
+      // canMsg.data[5] = 0x00;
+      // canMsg.data[6] = 0x00;
+      // canMsg.data[7] = 0x00;
+      com.write('b');
     }
   }
-
+  //com.println("a");
+  //mcp2515.sendMessage(&canMsg);
   static unsigned long lastTime = millis();
   static unsigned int count = 0;
   static unsigned int frequency = 0;
