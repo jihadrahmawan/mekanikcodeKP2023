@@ -84,7 +84,7 @@ void loop() {
   if (Serial.available()) {
     char a = Serial.read();
     if (a == 'n') {
-      Serial.println("Kirim naik");
+      //Serial.println("Kirim naik");
       canMsg.can_id = 0x036;
       canMsg.can_dlc = 8;
       canMsg.data[0] = perintahMagnetNaik;
@@ -98,7 +98,7 @@ void loop() {
       mcp2515.sendMessage(&canMsg);
     }
     if (a == 't') {
-      Serial.println("Kirim turun");
+      //Serial.println("Kirim turun");
       canMsg.can_id = 0x036;
       canMsg.can_dlc = 8;
       canMsg.data[0] = perintahMagnetTurun;
@@ -132,25 +132,27 @@ void loop() {
       count = 0;
     }
 
-    Serial.print("Jarak Depan : ");
-    Serial.print(TFminiDepan.distance);
-    Serial.print("cm\t");
-    Serial.print("Jarak Bawah : ");
-    Serial.print(TFminiBawah.distance);
-    Serial.print("cm\t");
-    Serial.print("Jarak Kanan : ");
-    Serial.print(TFminiKanan.distance);
-    Serial.print("cm\t");
-    Serial.print("Jarak Kiri : ");
-    Serial.print(TFminiKiri.distance);
-    Serial.print("cm\t");
-    Serial.print(frequency);  //40~70Hz, It maybe higher if we don't print other thing.
-    Serial.println("Hz");
+    // Serial.print("Jarak Depan : ");
+    // Serial.print(TFminiDepan.distance);
+    // Serial.print("cm\t");
+    // Serial.print("Jarak Bawah : ");
+    // Serial.print(TFminiBawah.distance);
+    // Serial.print("cm\t");
+    // Serial.print("Jarak Kanan : ");
+    // Serial.print(TFminiKanan.distance);
+    // Serial.print("cm\t");
+    // Serial.print("Jarak Kiri : ");
+    // Serial.print(TFminiKiri.distance);
+    // Serial.print("cm\t");
+    // Serial.print(frequency);  //40~70Hz, It maybe higher if we don't print other thing.
+    // Serial.println("Hz");
 
-    // sprintf(buffer, "a%4d%4d%4d%4d",
-    //         TFminiDepan.distance,
-    //         TFminiBawah.distance);
-    // Serial.println(buffer);
+    sprintf(buffer, "a%4d%4d%4d%4d",
+            TFminiDepan.distance,
+            TFminiBawah.distance,
+            TFminiKanan.distance,
+            TFminiKiri.distance);
+    Serial.println(buffer);
 
     TFminiDepan.receiveComplete = false;
     TFminiBawah.receiveComplete = false;
